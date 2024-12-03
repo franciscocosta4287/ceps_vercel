@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Relatório de Endereços</title>
+</head>
+<body>
+    <h1>Relatório de Endereços</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>CEP</th>
+            <th>Logradouro</th>
+            <th>Bairro</th>
+            <th>Localidade</th>
+            <th>UF</th>
+            <th>Numero</th>
+        </tr>
+        {% for endereco in enderecos %}
+        <tr>
+            <td>{{ endereco.id }}</td>
+            <td>{{ endereco.cep }}</td>
+            <td>{{ endereco.logradouro }}</td>
+            <td>{{ endereco.bairro }}</td>
+            <td>{{ endereco.localidade }}</td>
+            <td>{{ endereco.uf }}</td>
+            <td>{{ endereco.numero }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

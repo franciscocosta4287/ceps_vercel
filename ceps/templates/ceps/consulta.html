@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Consulta CEP</title>
+    <script>
+        // Função para buscar os dados do CEP
+        function buscaCep() {
+            const cep = document.getElementById('cep').value;
+
+            // Verifica se o CEP tem 8 dígitos
+            if (cep.length === 8) {
+                fetch(`/consulta-cep/?cep=${cep}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert(data.error);
+                        } else {
+                            // Preenche os campos com os dados recebidos
+                            document.getElementById('logradouro').value = data.logradouro || '';
+                            document.getElementById('complemento').value = data.complemento || '';
+                            document.getElementById('bairro').value = data.bairro || '';
+                            document.getElementById('localidade').value = data.localidade || '';
+                            document.getElementById('uf').value = data.uf || '';
+                            
+                        }
+                    })
+                    .catch(error => console.error('Erro ao buscar o CEP:', error));
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Consultar CEP</h1>
+    <form method="post" action="{% url 'salvar_cep' %}">
+        {% csrf_token %}
+        <p>CEP: <input type="text" id="cep" name="cep" placeholder="Digite o CEP" onkeyup="buscaCep()" required></p>
+        <p>Logradouro: <input type="text" id="logradouro" name="logradouro"></p>
+        <p>Complemento: <input type="text" id="complemento" name="complemento"></p>
+        <p>Bairro: <input type="text" id="bairro" name="bairro"></p>
+        <p>Localidade: <input type="text" id="localidade" name="localidade"></p>
+        <p>UF: <input type="text" id="uf" name="uf"></p>
+        <p>Numero: <input type="text" id="numero" name="numero"></p>
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>
